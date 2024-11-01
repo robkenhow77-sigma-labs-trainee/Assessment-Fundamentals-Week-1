@@ -4,18 +4,18 @@ Note: Do not add ANY variables to the global scope. This WILL break the tests.
 
 
 def generate_invoice(receipt_string: str) -> str:
-    """Generates the final vat invoice"""
-    final_receipt = "vat RECEIPT\n\n"
+    """Generates the final VAT invoice"""
+    final_receipt = "VAT RECEIPT\n\n"
     original_prices = get_prices(receipt_string)
     vat_prices = get_vat_prices(original_prices)
     total_vat = format_float(get_total_vat(original_prices,vat_prices))
     vat_receipt = create_vat_receipt(receipt_string, vat_prices)
     final_receipt += f"{vat_receipt}\nTotal: £{format_float(sum(vat_prices))}\n"
-    final_receipt += f"vat: £{total_vat}\n"
+    final_receipt += f"VAT: £{total_vat}\n"
     total_price_including_vat = get_total_price_including_vat(receipt_string)
-    final_receipt += f"Total inc vat: £{format_float(total_price_including_vat)}"
+    final_receipt += f"Total inc VAT: £{format_float(total_price_including_vat)}"
     if sum(original_prices) == 0:
-        return """vat RECEIPT\n\nTotal: £0.00\nvat: £0.00\nTotal inc vat: £0.00"""
+        return """VAT RECEIPT\n\nTotal: £0.00\nVAT: £0.00\nTotal inc VAT: £0.00"""
     return  final_receipt
 
 
