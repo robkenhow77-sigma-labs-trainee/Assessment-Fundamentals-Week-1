@@ -20,14 +20,12 @@ def generate_receipt(basket: list) -> str:
     if len(basket) == 0:
         return "Basket is empty"
     receipt = ""
-    total = 0
     for good in basket:
-        total += good["price"]
         if good["price"] == 0:
             receipt += f'{good["name"]} - Free\n'
         else:
             receipt += f'{good["name"]} - £{format_float(good["price"])}\n'
-    return  receipt + f"Total: £{format_float(total)}"
+    return  receipt + f"Total: £{format_float(get_total(basket))}"
 
 
 def format_float(number:float) -> str:
@@ -41,6 +39,14 @@ def format_float(number:float) -> str:
     if len(number_and_remainder[1]) == 1:
         return f"{number_and_remainder[0]}.{number_and_remainder[1]}0"
     return  f"{number_and_remainder[0]}.{number_and_remainder[1]}"
+
+
+def get_total(basket: list) -> float:
+    """ Returns the total cost"""
+    total = 0
+    for good in basket:
+         total += good["price"]
+    return total
 
 
 if __name__ == "__main__":
