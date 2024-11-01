@@ -32,10 +32,7 @@ def generate_receipt(basket: list) -> str:
 
 def get_total(basket: list) -> float:
     """ Returns the total cost"""
-    total = 0
-    for good in basket:
-         total += good["price"]
-    return total
+    return sum([good["price"] for good in basket])
 
 
 def format_float(number:float) -> str:
