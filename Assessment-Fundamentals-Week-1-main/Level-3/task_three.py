@@ -13,6 +13,8 @@ def generate_invoice(receipt_string: str) -> str:
     final_receipt += f"VAT: £{total_VAT}\n"
     total_price_including_VAT = get_total_price_including_VAT(receipt_string)
     final_receipt += f"Total inc VAT: £{format_float(total_price_including_VAT)}"
+    if sum(original_prices) == 0:
+        return """VAT RECEIPT\n\nTotal: £0.00\nVAT: £0.00\nTotal inc VAT: £0.00"""
     return  final_receipt
 
 
@@ -37,7 +39,7 @@ def create_VAT_receipt(receipt_string: str, VAT_prices:list[float]) -> str:
     items = [row.split("£")[0] for row in receipt_list]
     VAT_receipt = ""
     for i in range(len(VAT_prices)):
-        VAT_receipt += f"{items[i]}£{format_float(VAT_prices[i])}\n "
+        VAT_receipt += f"{items[i]}£{format_float(VAT_prices[i])}\n"
     return VAT_receipt
     
 
@@ -65,4 +67,5 @@ if __name__ == "__main__":
 Milk x 1 - £0.80
 Butter x 1 - £1.20
 Total: £5.60"""
+
     print(generate_invoice(receipt_string))
